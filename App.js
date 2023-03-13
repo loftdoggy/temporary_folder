@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, Text, View, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ProfilePage from './ProfilePage';
 
 const TREND_DATA = [
   {
@@ -44,16 +47,16 @@ const POST_DATA = [
 export default function App() {
   const [selectedTrend, setSelectedTrend] = React.useState(null);
 
-  const handlePress = (trend) => {
+  const trendPress = (trend) => {
     setSelectedTrend(trend);
   };
 
-  const handleBack = () => {
+  const trendBack = () => {
     setSelectedTrend(null);
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.trend} onPress={() => handlePress(item)}>
+    <TouchableOpacity style={styles.trend} onPress={() => trendPress(item)}>
       <Text style={styles.trendName}>{item.name}</Text>
       <Text style={styles.trendPostCount}>{item.postCount} 게시글 수</Text>
     </TouchableOpacity>
@@ -67,10 +70,182 @@ export default function App() {
     </View>
   );
 
+  const [selectedHome, setselectedHome] = React.useState(null);
+
+  const HomePress = (Home) => {
+    setselectedHome(Home);
+  };
+
+  const HomeBack = () => {
+    setselectedHome(null);
+  };
+
+  const HomeButton = () => (
+    <TouchableOpacity style={styles.button2} onPress={() => HomePress(Home)}>
+      <Feather name="home" size={24} color="#657786" />
+      <Text style={styles.label}>홈</Text>
+    </TouchableOpacity>
+  );
+
+  const HomePage = () => (
+    <View style={styles.post}>
+      <Text style={styles.label}>홈</Text>
+    </View>
+  );
+  const [selectedSearch, setselectedSearch] = React.useState(null);
+
+  const SearchPress = (Search) => {
+    setselectedSearch(Search);
+  };
+
+  const SearchBack = () => {
+    setselectedSearch(null);
+  };
+
+  const SearchButton = () => (
+    <TouchableOpacity style={styles.button2} onPress={() => SearchPress(Search)}>
+      <Feather name="search" size={24} color="#1DA1F2" />
+      <Text style={styles.label}>검색하기</Text>
+    </TouchableOpacity>
+  );
+
+  const SearchPage = () => (
+    <View style={styles.post}>
+      <Text style={styles.label}>검색하기</Text>
+    </View>
+  );
+
+  const [selectedProfile, setselectedProfile] = React.useState(null);
+
+  const ProfilePress = (Profile) => {
+    setselectedProfile(Profile);
+  };
+
+  const ProfileBack = () => {
+    setselectedProfile(null);
+  };
+
+  const ProfileButton = () => (
+    <TouchableOpacity style={styles.button2} onPress={() => ProfilePress(Profile)}>
+      <Feather name="image" size={24} color="#657786" />
+      <Text style={styles.label}>프로필</Text>
+    </TouchableOpacity>
+  );
+
+  const ProfilePage = () => (
+    <ProfilePage></ProfilePage>
+  );
+
+  const [selectedBell, setselectedBell] = React.useState(null);
+
+  const BellPress = (Bell) => {
+    setselectedProfile(Bell);
+  };
+
+  const BellBack = () => {
+    setselectedProfile(null);
+  };
+
+  const BellButton = () => (
+    <TouchableOpacity style={styles.button2} onPress={() => BellPress(Bell)}>
+      <Feather name="bell" size={24} color="#657786" />
+      <Text style={styles.label}>알림</Text>
+    </TouchableOpacity>
+  );
+
+  const BellPage = () => (
+    <View style={styles.post}>
+      <Text style={styles.label}>프로필</Text>
+    </View>
+  );
+
+  const [selectedMessage, setselectedMessage] = React.useState(null);
+
+  const MessagePress = (Message) => {
+    setselectedProfile(Message);
+  };
+
+  const MessageBack = () => {
+    setselectedProfile(null);
+  };
+
+  const MessageButton = () => (
+    <TouchableOpacity style={styles.button2} onPress={() => MessagePress(message)}>
+      <Feather name="mail" size={24} color="#657786" />
+      <Text style={styles.label}>메세지</Text>
+    </TouchableOpacity>
+  );
+
+  const MessagePage = () => (
+    <View style={styles.post}>
+      <Text style={styles.label}>메세지</Text>
+    </View>
+  );
+
+  if (selectedHome) {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={HomeBack}>
+          <Text style={styles.backButtonText}>{"< 뒤로가기"}</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{selectedHome.name}</Text>
+        <HomePage></HomePage>
+      </View>
+    );
+  }
+
+  if (selectedSearch) {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={SearchBack}>
+          <Text style={styles.backButtonText}>{"< 뒤로가기"}</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{selectedHome.name}</Text>
+        <SearchPage></SearchPage>
+      </View>
+    );
+  }
+
+  if (selectedProfile) {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={ProfileBack}>
+          <Text style={styles.backButtonText}>{"< 뒤로가기"}</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{selectedHome.name}</Text>
+        <ProfilePage></ProfilePage>
+      </View>
+    );
+  }
+
+  if (selectedBell) {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={BellBack}>
+          <Text style={styles.backButtonText}>{"< 뒤로가기"}</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{selectedHome.name}</Text>
+        <BellPage></BellPage>
+      </View>
+    );
+  }
+
+  if (selectedMessage) {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={MessageBack}>
+          <Text style={styles.backButtonText}>{"< 뒤로가기"}</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{selectedHome.name}</Text>
+        <MessagePage></MessagePage>
+      </View>
+    );
+  }
+
   if (selectedTrend) {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <TouchableOpacity style={styles.backButton} onPress={trendBack}>
           <Text style={styles.backButtonText}>{"< 뒤로가기"}</Text>
         </TouchableOpacity>
         <Text style={styles.title}>{selectedTrend.name}</Text>
@@ -79,12 +254,19 @@ export default function App() {
           renderItem={renderPost}
           keyExtractor={(item) => item.id}
         />
+        <View style={styles.container2}>
+          <HomeButton></HomeButton>
+          <SearchButton></SearchButton>
+          <ProfileButton></ProfileButton>
+          <BellButton></BellButton>
+          <MessageButton></MessageButton>
+        </View>
       </View>
-      
     );
   }
 
   return (
+    
     <View style={styles.container}>
       <Text style={styles.title}>무엇이 궁금하신가요?</Text>
       <View style={styles.searchBar}>
@@ -102,28 +284,13 @@ export default function App() {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
-       <View style={styles.container2}>
-      <TouchableOpacity style={styles.button2}>
-        <Feather name="home" size={24} color="#657786" />
-        <Text style={styles.label}>홈</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button2}>
-        <Feather name="search" size={24} color="#1DA1F2" />
-        <Text style={styles.label}>검색하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button2}>
-        <Feather name="image" size={24} color="#657786" />
-        <Text style={styles.label}>프로필</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button2}>
-        <Feather name="bell" size={24} color="#657786" />
-        <Text style={styles.label}>알림</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button2}>
-        <Feather name="mail" size={24} color="#657786" />
-        <Text style={styles.label}>메세지</Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.container2}>
+        <HomeButton></HomeButton>
+        <SearchButton></SearchButton>
+        <ProfileButton></ProfileButton>
+        <BellButton></BellButton>
+        <MessageButton></MessageButton>
+      </View>
     </View>
   );
 }
